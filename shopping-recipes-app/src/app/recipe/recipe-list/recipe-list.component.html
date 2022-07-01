@@ -6,13 +6,6 @@
 <hr>
 <div class="row">
     <div class="col-xs-12">
-        <a href="#" *ngFor="let item of recipes" class="card" style="width: 18rem;text-decoration:none;">
-            <img src={{item.imagePath}} class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{item.name}}</h5>
-                <p class="card-text">{{item.description}}</p>
-            </div>
-        </a>
-        <!-- <app-recipe-item></app-recipe-item> -->
+        <app-recipe-item *ngFor="let item of recipes" [listElement]='item'></app-recipe-item>
     </div>
 </div>
