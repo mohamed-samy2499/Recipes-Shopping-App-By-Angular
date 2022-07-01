@@ -1,34 +1,37 @@
-<div class="row">
-    <div class="col-xs-12">
-        <img src="" alt="" class="img-fluid">
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12">
-        <h1>name</h1>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12">
-        <div class="btn-group">
-            <button class="btn btn-primary dropdown-toggle" type="button">
-                Manage Rcipe<span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#">To Shopping List</a></li>
-                <li><a href="#">Edit Recipe</a></li>
-                <li><a href="#">Delete Recipe</a></li>
-            </ul>
+<div *ngIf="anyElement()">
+
+    <div class="row" >
+        <div class="col-xs-12">
+            <img src={{element.imagePath}} alt="" class="img-fluid">
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-xs-12">
-        Description
+    <div class="row">
+        <div class="col-xs-12">
+            <h1>{{element.name}}</h1>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-xs-12">
-        Ingredients
+    <div class="row " >
+        <div class="col-xs-12">
+            <div class="btn-group">
+                <button  class="btn btn-primary dropdown-toggle" type="button">
+                    Manage Rcipe<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">To Shopping List</a></li>
+                    <li><a href="#">Edit Recipe</a></li>
+                    <li><a href="#">Delete Recipe</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            {{element.description}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            Ingredients
+        </div>
     </div>
 </div>
