@@ -1,5 +1,7 @@
 import { Component, Output , EventEmitter } from "@angular/core";
 import { Ingredient } from "src/app/shared/ingredient.model";
+import { ShoppingService } from "../shopping.service";
+
 
 @Component({
     selector:'app-shopping-list-edit',
@@ -9,11 +11,12 @@ import { Ingredient } from "src/app/shared/ingredient.model";
 })
 
 export class ShoppingListEditComponent{
-    element:Ingredient|undefined;
-    @Output() itemAdded = new EventEmitter<Ingredient>();
+    constructor(private shoppingService:ShoppingService){
+
+
+    }
     onAdd(title:HTMLInputElement,quantity:HTMLInputElement)
     {
-        this.element = new Ingredient(title.value,Number(quantity.value));
-        this.itemAdded.emit(this.element);
+        this.shoppingService.addElementToShopping(new Ingredient(title.value,Number(quantity.value)));
     }
 }
