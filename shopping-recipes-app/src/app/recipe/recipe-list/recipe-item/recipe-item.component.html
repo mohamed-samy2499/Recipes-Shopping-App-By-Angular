@@ -1,7 +1,15 @@
-<a href="#" (click)="onItemChoosed()"  class="card" style="width: 18rem;text-decoration:none;">
+<a routerLinkActive="active"  [routerLink]="[ElemntId]"  class="card" style="width: 18rem;text-decoration:none;cursor: pointer;">
+    <div class="row ">
+<div class="col-md-4">
+    
     <img src={{listElement.imagePath}} class="card-img-top" alt="...">
+</div>
+<div class="col-md-8">
+
     <div class="card-body">
-        <h5 class="card-title">{{listElement.name}}</h5>
-        <p class="card-text">{{listElement.description}}</p>
+        <h5 class="card-title ">{{listElement.name}}</h5>
+        <p class="card-text ">{{listElement.description}}</p>
     </div>
+</div>
+</div>
 </a>

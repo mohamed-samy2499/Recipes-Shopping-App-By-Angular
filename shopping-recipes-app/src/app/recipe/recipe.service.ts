@@ -14,11 +14,17 @@ export class RecipeService{
     [new Ingredient('musroom',2), 
     new Ingredient('olive oil',3)])];
 
-
+  recipeAdded = new EventEmitter<Recipe[]>();
+  getRecipeById(id:number){
+    return this.recipes[id];
+  }
   getRecipes(){
     return this.recipes.slice();
   }
-
+  addRecipe(recipe:Recipe){
+    this.recipes.push(recipe);
+    this.recipeAdded.emit(this.recipes.slice());
+}
     recipeEmitted = new EventEmitter<Recipe>();
     recipeSerlected = new EventEmitter<Recipe>();
 }

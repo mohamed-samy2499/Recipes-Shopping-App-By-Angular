@@ -12,6 +12,9 @@ import { RecipeDetailComponent } from './recipe/recipe-detail/recipe-detail.comp
 import { RecipeItemComponent } from './recipe/recipe-list/recipe-item/recipe-item.component';
 import { NgModel } from '@angular/forms';
 import { DropdownDirective } from './shared/dropdown.directive';
+import { RecipeStartComponent } from './recipe/recipe-start/recipe-start.component';
+import { CommonModule } from '@angular/common';
+import { AddRecipeComponent } from './recipe/add-recipe/add-recipe.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,7 @@ import { DropdownDirective } from './shared/dropdown.directive';
     RecipeListComponent,
     RecipeDetailComponent,
     RecipeItemComponent, 
-    DropdownDirective
+    DropdownDirective, RecipeStartComponent,AddRecipeComponent
   ],
   imports: [
     BrowserModule,
