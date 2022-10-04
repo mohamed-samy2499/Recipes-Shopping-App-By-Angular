@@ -1,4 +1,5 @@
 import { EventEmitter } from "@angular/core";
+import { Subject } from "rxjs";
 import { Ingredient } from "../shared/ingredient.model";
 import { Recipe } from "./recipe.model";
 
@@ -14,7 +15,7 @@ export class RecipeService{
     [new Ingredient('musroom',2), 
     new Ingredient('olive oil',3)])];
 
-  recipeAdded = new EventEmitter<Recipe[]>();
+  recipeAdded = new Subject<Recipe[]>();
   getRecipeById(id:number){
     return this.recipes[id];
   }
@@ -23,7 +24,7 @@ export class RecipeService{
   }
   addRecipe(recipe:Recipe){
     this.recipes.push(recipe);
-    this.recipeAdded.emit(this.recipes.slice());
+    this.recipeAdded.next(this.recipes.slice());
 }
     recipeEmitted = new EventEmitter<Recipe>();
     recipeSerlected = new EventEmitter<Recipe>();
