@@ -30,7 +30,10 @@ export class RecipeService{
     this.recipes[recipeId] = recipeEdited;
     this.recipeAdded.next(this.recipes.slice());
   }
-
+  Delete(index:number){
+    this.recipes.splice(index,1);
+    this.recipeAdded.next(this.recipes.slice());
+  }
     recipeEmitted = new EventEmitter<Recipe>();
     recipeSerlected = new EventEmitter<Recipe>();
 }
