@@ -89,14 +89,15 @@ export class AddRecipeComponent implements OnInit{
         return (this.addRecipeForm.get('ingredients') as FormArray).controls;
     }
     onSubmit(){
+        let Ingredients:Ingredient[] = [];
         for(let item of this.addRecipeForm.get('ingredients')!.value){
 
-            this.ingredients.push( new Ingredient(item.name,item.amount));
+            Ingredients.push( new Ingredient(item.name,item.amount));
         }
         this.recipe = new Recipe(this.addRecipeForm.get('name')!.value,
             this.addRecipeForm.get('description')!.value,
             this.addRecipeForm.get('imgPath')!.value,
-            this.ingredients
+            Ingredients
         )
         if(this.editMode){
             this.recipeService.editRecipe(this.recipe,this.Id);
@@ -114,5 +115,8 @@ export class AddRecipeComponent implements OnInit{
     }
     onClear(){
         this.addRecipeForm.reset();
+    }
+    onDeleteIngredient(index:number){
+        (<FormArray>this.addRecipeForm.get('ingredients')).removeAt(index);
     }
 }

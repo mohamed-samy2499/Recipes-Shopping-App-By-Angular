@@ -34,6 +34,9 @@ export class RecipeService{
     this.recipes.splice(index,1);
     this.recipeAdded.next(this.recipes.slice());
   }
+  removeIngredient(RecipeIndex:number,IngIndex:number){
+    this.recipes[RecipeIndex].ingredients.splice(IngIndex,1);
+  } 
     recipeEmitted = new EventEmitter<Recipe>();
     recipeSerlected = new EventEmitter<Recipe>();
 }

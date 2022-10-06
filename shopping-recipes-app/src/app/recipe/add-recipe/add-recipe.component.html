@@ -16,7 +16,12 @@
     <div class="row">
         <div class=" form-group">
             <label for="description">Image URL</label>
-            <input type="text" id="imagePath" class="form-control" formControlName="imgPath">
+            <input type="text" id="imagePath" class="form-control" formControlName="imgPath" #imagePath>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <img [src]="imagePath.value" class="img-responsive" style="height: auto; width: 500px;">
         </div>
     </div>
     <div class="row" formArrayName="ingredients" class="mt-3 mb-3">
@@ -39,7 +44,10 @@
                         <label class="m-2">amount</label>
                         <input type="number" formControlName="amount">
 
-                        <button class="btn btn-danger m-1" type="button">X</button>
+                        <button
+                         class="btn btn-danger m-1" 
+                         type="button"
+                         (click)="onDeleteIngredient(i)">X</button>
             </div>
         </div>
         <hr>
