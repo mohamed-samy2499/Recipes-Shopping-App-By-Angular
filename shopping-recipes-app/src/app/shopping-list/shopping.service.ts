@@ -26,4 +26,9 @@ export class ShoppingService{
         this.ingredients[id] = item;
         this.elementAdded.next(this.ingredients.slice());
     }
+    delete(index:number){
+        this.ingredients.splice(index,1);
+        this.elementAdded.next(this.ingredients.slice());
+
+    }
 }
