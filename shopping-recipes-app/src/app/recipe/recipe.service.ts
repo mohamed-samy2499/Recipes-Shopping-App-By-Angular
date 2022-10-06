@@ -25,7 +25,12 @@ export class RecipeService{
   addRecipe(recipe:Recipe){
     this.recipes.push(recipe);
     this.recipeAdded.next(this.recipes.slice());
-}
+  }
+  editRecipe(recipeEdited:Recipe,recipeId:number){
+    this.recipes[recipeId] = recipeEdited;
+    this.recipeAdded.next(this.recipes.slice());
+  }
+
     recipeEmitted = new EventEmitter<Recipe>();
     recipeSerlected = new EventEmitter<Recipe>();
 }

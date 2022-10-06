@@ -1,72 +1,67 @@
-<form *ngIf="!editMode">
+<form [formGroup]="addRecipeForm" (ngSubmit)="onSubmit()">
     <div class="row">
         <div class="col-sm-5 form-group">
             <label for="name">Name</label>
-            <input type="text" id="name" class="form-control" #nameInput>
+            <input type="text" id="name" class="form-control" formControlName="name">
 
         </div>
     </div>
     <div class="row">
         <div class=" form-group">
             <label for="description">Description</label>
-            <input type="text" id="description" class="form-control" #descriptionInput>
+            <textarea rows="6" type="text" id="description" class="form-control"
+                formControlName="description"></textarea>
         </div>
     </div>
     <div class="row">
         <div class=" form-group">
-            <label for="description">Image</label>
-            <input type="file" id="imagePath" class="form-control" #imagePathInput>
+            <label for="description">Image URL</label>
+            <input type="text" id="imagePath" class="form-control" formControlName="imgPath">
         </div>
     </div>
-    <div class="row">
+    <div class="row" formArrayName="ingredients" class="mt-3 mb-3">
+        <div class="row ">
+
+            <div class="col-md-4">
+
+                <label for="ingredients">Ingredients</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div *ngFor="let ingredient of getControlls(); let i = index;"
+            [formGroupName]="i">                   
+                        <label class="m-2">name</label>
+                        <input type="text" formControlName="name">
+                    
+                    
+
+                        <label class="m-2">amount</label>
+                        <input type="number" formControlName="amount">
+
+                        <button class="btn btn-danger m-1" type="button">X</button>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+
+            <div class="col-md-4">
+                <button class="btn btn-primary " type="button" (click)="onAddIngredient()">Add Ingredient</button>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="row">
         <div class="form-group">
             <label for="ingredients">ingredients</label>
-            <input type="text" id="ingredients" class="form-control" #ingredientInput>
+            <input type="text" id="ingredients" class="form-control" formControlName="ingredients">
 
         </div>
-    </div>
+    </div> -->
     <div class="row">
         <div class="col-xs-12">
-            <button class="btn btn-success m-2" type="button" (click)="onAdd(nameInput,descriptionInput,imagePathInput,ingredientInput)">Add</button>
-            <button class="btn btn-danger m-2" type="button">Delete</button>
-            <button class="btn btn-primary m-2" type="button">Clear</button>
+            <button class="btn btn-success m-2" type="submit" [disabled]="!addRecipeForm.valid">{{editMode? 'Save':'Add'}}</button>
+            <button class="btn btn-danger m-2" type="button">Cancel</button>
+            <button class="btn btn-primary m-2" type="button" (click)="onClear()">Clear</button>
         </div>
     </div>
 </form>
-<form *ngIf="editMode">
-    <div class="row">
-        <div class="col-sm-5 form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" class="form-control" placeholder={{name}} #nameInput>
-
-        </div>
-    </div>
-    <div class="row">
-        <div class=" form-group">
-            <label for="description">Description</label>
-            <input type="text" id="description" class="form-control" placeholder={{description}} #descriptionInput>
-        </div>
-    </div>
-    <div class="row">
-        <div class=" form-group">
-            <label for="description">Image</label>
-            <input type="file" id="imagePath" class="form-control" #imagePathInput>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group">
-            <label for="ingredients">ingredients</label>
-            <input type="text" id="ingredients" class="form-control" #ingredientInput>
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <button class="btn btn-success m-2" type="button" (click)="onAdd(nameInput,descriptionInput,imagePathInput,ingredientInput)">Add</button>
-            <button class="btn btn-danger m-2" type="button">Delete</button>
-            <button class="btn btn-primary m-2" type="button">Clear</button>
-        </div>
-    </div>
-</form>
-
-
