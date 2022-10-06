@@ -105,10 +105,10 @@ export class AddRecipeComponent implements OnInit{
 
             this.recipeService.addRecipe(this.recipe);
         }
-        this.onClear();
+        this.onCancel();
     }
     onCancel(){
-        this.router.navigate(['../'])
+        this.router.navigate(['../'],{relativeTo:this.route})
         this.editMode = false;
         this.addRecipeForm.reset();
     }
