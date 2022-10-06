@@ -12,7 +12,7 @@ export class RecipeService{
     new Recipe('A test recipe 2',
     'A mushroom pizza',
     'https://www.simplyrecipes.com/thmb/mbN8mXZ0srgAT1YrDU61183t0uM=/648x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/Simply-Recipes-Homemade-Pizza-Dough-Lead-Shot-1b-ea13798d224048b3a28afb0936c9b645.jpg',
-    [new Ingredient('musroom',2), 
+    [new Ingredient('mushroom',2), 
     new Ingredient('olive oil',3)])];
 
   recipeAdded = new Subject<Recipe[]>();
