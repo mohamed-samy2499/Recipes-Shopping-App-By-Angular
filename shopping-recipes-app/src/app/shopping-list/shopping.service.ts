@@ -6,9 +6,13 @@ export class ShoppingService{
     private ingredients:Ingredient[] = [new Ingredient('onion',3),
     new Ingredient('Apples',5)];
     elementAdded = new Subject<Ingredient[]>();
+    startEditting = new Subject<number>();
     getIngredients()
     {
         return this.ingredients.slice();
+    }
+    getIngredient(index:number){
+        return this.ingredients[index];
     }
     addElementToShopping(ingredient:Ingredient){
         this.ingredients.push(ingredient);
@@ -17,6 +21,9 @@ export class ShoppingService{
     addIngredients(ingredients:Ingredient[]){
         this.ingredients.push(...ingredients);
         this.elementAdded.next(this.ingredients.slice());
-
+    }
+    replaceIngredient(item:Ingredient,id:number){
+        this.ingredients[id] = item;
+        this.elementAdded.next(this.ingredients.slice());
     }
 }
