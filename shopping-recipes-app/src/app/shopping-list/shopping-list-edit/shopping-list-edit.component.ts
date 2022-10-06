@@ -55,8 +55,7 @@ export class ShoppingListEditComponent implements OnInit,OnDestroy{
             this.shoppingService.replaceIngredient(new Ingredient(name,amount), this.editIndex);
             
         }
-        this.editMode=false;
-        this.signupForm.reset();
+        this.onReset();
 
     }
     onReset(){
@@ -65,10 +64,9 @@ export class ShoppingListEditComponent implements OnInit,OnDestroy{
     }
     onDelete(){
         this.shoppingService.delete(this.editIndex);
-        this.editMode=false;
-        this.signupForm.reset();
+        this.onReset();
     }
-    ngOnDestroy(): void {
+    ngOnDestroy(): void { 
         this.subscription.unsubscribe();
     }
 }
