@@ -3,8 +3,9 @@ import { Subject } from "rxjs";
 import { Ingredient } from "../shared/ingredient.model";
 
 export class ShoppingService{
-    private ingredients:Ingredient[] = [new Ingredient('onion',3),
-    new Ingredient('Apples',5)];
+    // private ingredients:Ingredient[] = [new Ingredient('onion',3),
+    // new Ingredient('Apples',5)];
+    private ingredients:Ingredient[] = [];
     elementAdded = new Subject<Ingredient[]>();
     startEditting = new Subject<number>();
     getIngredients()

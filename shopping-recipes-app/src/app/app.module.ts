@@ -16,6 +16,7 @@ import { RecipeStartComponent } from './recipe/recipe-start/recipe-start.compone
 import { CommonModule } from '@angular/common';
 import { AddRecipeComponent } from './recipe/add-recipe/add-recipe.component';
 import { RecipeService } from './recipe/recipe.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { RecipeService } from './recipe/recipe.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [  RecipeService],
   bootstrap: [AppComponent]
