@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { RecipeService } from "../recipe/recipe.service";
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Recipe } from "../recipe/recipe.model";
 import { Ingredient } from "./ingredient.model";
 
@@ -18,18 +18,19 @@ export class DataStorageService {
         });
     }
     fetchRecipes(){
-        this.http.get<Recipe[]>("https://ng-shopping-app-66d3d-default-rtdb.europe-west1.firebasedatabase.app/recipes.json")
+        return this.http.get<Recipe[]>("https://ng-shopping-app-66d3d-default-rtdb.europe-west1.firebasedatabase.app/recipes.json")
         .pipe(map(resData => {
             return resData.map(recipe =>{
                 //protection against if the recipe had no ingredients so that the server doesn't set it to undefined
                 return {...recipe, ingredients: recipe.ingredients? recipe.ingredients : []};
         
             });
-        }))
-        .subscribe(resData=>{
-            console.log(resData);
+        }),
+        tap(response => 
+            {
+                console.log(response);
             
-            this.recipeService.updateRecipes(resData);
-          });
+                this.recipeService.updateRecipes(response);
+            }));
     }
 }
