@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthComponent } from './auth/auth.component';
 import { AddRecipeComponent } from './recipe/add-recipe/add-recipe.component';
 import { RecipeDetailComponent } from './recipe/recipe-detail/recipe-detail.component';
 import { RecipeStartComponent } from './recipe/recipe-start/recipe-start.component';
@@ -16,7 +17,8 @@ const appRoutes: Routes = [
     {path:':id',component:RecipeDetailComponent,resolve:[RecipesResolverService]},
     {path:':id/edit', component:AddRecipeComponent,resolve:[RecipesResolverService]}
   ]},
-  {path:'shopping',component:ShoppingListComponent}
+  {path:'shopping',component:ShoppingListComponent},
+  {path:'auth',component:AuthComponent}
 ];
 
 @NgModule({
