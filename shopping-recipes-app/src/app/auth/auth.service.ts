@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, throwError } from "rxjs";
 
-interface AuthResponseData {
+export interface AuthResponseData {
     "idToken": string, "email": string, "refreshToken": string,
     "expiresIn": string, "localId": string, "registered"?: boolean
 }
