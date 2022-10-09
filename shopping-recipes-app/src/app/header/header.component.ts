@@ -15,8 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userSub?:Subscription;
 
   constructor(private dataStorageService: DataStorageService,
-    private authService:AuthService,
-    private router:Router) { }
+    private authService:AuthService) { }
 
   ngOnInit(){
     this.userSub = this.authService.user.subscribe(user => {
@@ -31,7 +30,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   onLogout(){
     this.authService.Logout();
-    this.router.navigate(['/auth'])
+    
   }
   ngOnDestroy(){
       this.userSub?.unsubscribe();
