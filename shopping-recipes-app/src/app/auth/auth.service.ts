@@ -10,7 +10,8 @@ export interface AuthResponseData {
 @Injectable({ providedIn: 'root' })
 
 export class AuthService {
-    user = new ReplaySubject<User>(1);
+    readonly initUser = new User("email","id","token",new Date());
+    user = new BehaviorSubject<User|null>(null);
     private apiKey = "AIzaSyDgLHtQCQfNcDaPXFa6Yh1X3rC7_c23D0E";
 
     constructor(private http: HttpClient) { }
@@ -39,6 +40,8 @@ export class AuthService {
              + this.apiKey,credentials)
             .pipe(catchError(this.HandleError),
             tap((response)=>{
+                console.log(response);
+                
                 this.HandleUserData(
                     response.email,
                     response.localId,
@@ -47,12 +50,17 @@ export class AuthService {
                 )
             }));
     }
-
+    
+    
+    Logout(){
+        this.user.next(null);
+    }
 
     private HandleError(errorRes: HttpErrorResponse){
         let errorMsg = "An unknown error occurred!";
                     if (!errorRes.error || !errorRes.error.error) {
                         // throw new Error(errorMsg);
+                        console.log(errorRes);
                         
                         return throwError( ()=> errorMsg );
                     }
@@ -73,7 +81,9 @@ export class AuthService {
     }
 
     private HandleUserData(email:string,localId:string,idToken:string,expiresIn:number){
-        const expirationDate = new Date(new Date().getTime() + expiresIn);
+        console.log(expiresIn);
+        
+        const expirationDate = new Date(new Date().getTime() + expiresIn*1000);
         const user = new User(email,
             localId,
             idToken,

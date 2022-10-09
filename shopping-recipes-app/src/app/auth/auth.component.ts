@@ -29,6 +29,7 @@ export class AuthComponent implements OnInit {
   }
   onSubmit(form:NgForm){
     if(!form.valid){
+      
       return;
     }
     this.isLoading = true;
@@ -37,6 +38,7 @@ export class AuthComponent implements OnInit {
     let registerObs: Observable<AuthResponseData>;
     if(this.isLoginMode){
       //...login 
+      
       registerObs = this.authService.signIn(email,password);
     }
     else{

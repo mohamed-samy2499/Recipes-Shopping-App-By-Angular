@@ -21,29 +21,22 @@ export class DataStorageService {
             });
     }
     fetchRecipes() {
+        return this.http.get<Recipe[]>
+        ("https://ng-shopping-app-66d3d-default-rtdb.europe-west1.firebasedatabase.app/recipes.json")
+        .pipe(map(resData => {
+            return resData.map(recipe => {
+                //protection against if the recipe had no ingredients so that the server doesn't set it to undefined
+                return { ...recipe, ingredients: recipe.ingredients ? recipe.ingredients : [] };
 
-        return this.authService.user.pipe(take(1), exhaustMap(user => {
-            return this.http.get<Recipe[]>
-            ("https://ng-shopping-app-66d3d-default-rtdb.europe-west1.firebasedatabase.app/recipes.json",
-            {
-                
-                params: new HttpParams().set('auth',user.token!)
             });
-        }
-        ),
-            map(resData => {
-                return resData.map(recipe => {
-                    //protection against if the recipe had no ingredients so that the server doesn't set it to undefined
-                    return { ...recipe, ingredients: recipe.ingredients ? recipe.ingredients : [] };
+        }),
+        tap(response => {
+            console.log(response);
 
-                });
-            }),
-            tap(response => {
-                console.log(response);
-
-                this.recipeService.updateRecipes(response);
-            })
-        )
+            this.recipeService.updateRecipes(response);
+        }))
+            
+        
 
 
 
