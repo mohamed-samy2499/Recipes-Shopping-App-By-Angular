@@ -21,7 +21,14 @@ export class AuthService {
         return this.http.post<AuthResponseData>
             ('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + this.apiKey,
                 credentials).pipe(catchError(this.HandleError),
-                tap(this.HandleUserData));
+                tap((response)=>{
+                    this.HandleUserData(
+                        response.email,
+                        response.localId,
+                        response.idToken,
+                        +response.expiresIn
+                    )
+                }));
     }
 
 
@@ -31,7 +38,14 @@ export class AuthService {
             ('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='
              + this.apiKey,credentials)
             .pipe(catchError(this.HandleError),
-            tap(this.HandleUserData));
+            tap((response)=>{
+                this.HandleUserData(
+                    response.email,
+                    response.localId,
+                    response.idToken,
+                    +response.expiresIn
+                )
+            }));
     }
 
 
@@ -58,11 +72,11 @@ export class AuthService {
                     return throwError( ()=> errorMsg );
     }
 
-    private HandleUserData(response: AuthResponseData){
-        const expirationDate = new Date(new Date().getTime() + +response.expiresIn);
-        const user = new User(response.email,
-            response.localId,
-            response.idToken,
+    private HandleUserData(email:string,localId:string,idToken:string,expiresIn:number){
+        const expirationDate = new Date(new Date().getTime() + expiresIn);
+        const user = new User(email,
+            localId,
+            idToken,
             expirationDate);
         this.user.next(user);
     }
