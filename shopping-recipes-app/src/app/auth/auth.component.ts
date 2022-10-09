@@ -12,8 +12,12 @@ export class AuthComponent implements OnInit {
   // @ViewChild('authForm') authForm!:NgForm;
   isLoginMode = true;
   isLoading = false;
+  
+  error?: string | null;
+  
   private token = "";
   private userId = "";
+  
   constructor(private authService:AuthService) { }
 
   ngOnInit(): void {
@@ -26,23 +30,38 @@ export class AuthComponent implements OnInit {
       return;
     }
     this.isLoading = true;
+    const email = form.value.email;
+    const password = form.value.password;
     if(this.isLoginMode){
       //...login 
+      this.authService.signIn(email,password).subscribe({
+        next: (Response)=>{
+          this.isLoading = false;
+          console.log(Response);
+
+          
+        },
+        error: (errorMsg)=>{
+          this.isLoading = false;
+          console.log(errorMsg);
+          this.error = errorMsg;
+
+        }
+      })
     }
     else{
 
       //credentials
-      const email = form.value.email;
-      const password = form.value.password;
+     
       //signUp post request
       this.authService.signUp(email,password).subscribe({
         next: (Response)=>{
-          this.isLoading = false;
           console.log(Response);
-        },
-        error: (error) => {
           this.isLoading = false;
-          console.log(error);
+        },
+        error: (errorMsg) => {
+          this.error = errorMsg;
+          this.isLoading = false;
         }
       })
     }
