@@ -41,7 +41,6 @@ export class AuthService {
                 + this.apiKey, credentials)
             .pipe(catchError(this.HandleError),
                 tap((response) => {
-                    console.log(response);
 
                     this.HandleUserData(
                         response.email,
@@ -101,9 +100,6 @@ export class AuthService {
 
         let errorMsg = "An unknown error occurred!";
         if (!errorRes.error || !errorRes.error.error) {
-            // throw new Error(errorMsg);
-            console.log(errorRes);
-
             return throwError(() => errorMsg);
         }
         switch (errorRes.error.error.message) {
@@ -117,14 +113,10 @@ export class AuthService {
                 errorMsg = "this password is invalid!";
                 break;
         }
-        // throw new Error(errorMsg);
-        console.log(errorRes);
         return throwError(() => errorMsg);
     }
 
     private HandleUserData(email: string, localId: string, idToken: string, expiresIn: number) {
-        console.log(expiresIn);
-
 
         const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
         const user = new User(email,

@@ -15,11 +15,9 @@ export class AuthInterceptorService implements HttpInterceptor{
             exhaustMap(user => {
                 
                 if(req.url != "https://ng-shopping-app-66d3d-default-rtdb.europe-west1.firebasedatabase.app/recipes.json"){
-                    console.log("user is null");
                     
                     return next.handle(req);
                 }
-                console.log(user);
                 
                 const modifiedReq = req.clone({params:new HttpParams().set('auth',user!.token!)});
                 return next.handle(modifiedReq);
