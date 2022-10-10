@@ -14,10 +14,6 @@ import { AuthComponent } from "./auth.component";
         ]),
         FormsModule,
         SharedModule
-    ],
-    exports:[
-        RouterModule,
-        AuthComponent
     ]
 
 })
