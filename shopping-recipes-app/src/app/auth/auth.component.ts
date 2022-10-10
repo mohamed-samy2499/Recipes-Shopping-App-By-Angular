@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactory, ComponentFactoryResolver, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
 import { AuthResponseData, AuthService } from './auth.service';
 
 @Component({
@@ -9,18 +11,16 @@ import { AuthResponseData, AuthService } from './auth.service';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit,OnDestroy {
 
-  // @ViewChild('authForm') authForm!:NgForm;
+  @ViewChild(PlaceholderDirective,{static:true}) placeholder!:PlaceholderDirective;
+  alertCompSub!:Subscription;
   isLoginMode = true;
   isLoading = false;
-  
   error?: string | null;
-  
-  private token = "";
-  private userId = "";
-  
+
   constructor(private authService:AuthService, private router:Router) { }
+
 
   ngOnInit(): void {
   }
@@ -38,13 +38,9 @@ export class AuthComponent implements OnInit {
     let registerObs: Observable<AuthResponseData>;
     if(this.isLoginMode){
       //...login 
-      
       registerObs = this.authService.signIn(email,password);
     }
     else{
-
-      //credentials
-     
       //signUp post request
       registerObs =this.authService.signUp(email,password);
     }
@@ -58,13 +54,28 @@ export class AuthComponent implements OnInit {
       error: (errorMsg)=>{
         this.isLoading = false;
         this.error = errorMsg;
-
+        this.HandleError(errorMsg);
       }
     })
     form.reset();
   }
+  HandleError(errorMsg:string){
+    const viewContainerRef  = this.placeholder.viewContainerRef;
+    viewContainerRef.clear();
+    const alertCompRef = viewContainerRef.createComponent(AlertComponent);
+    alertCompRef.instance.message = errorMsg;
+    this.alertCompSub = alertCompRef.instance.close.subscribe(()=>{
+      this.alertCompSub.unsubscribe();
+      viewContainerRef.clear();
+
+    })
+     
+  }
   onCloseError(){
     this.error = null;
   }
-  
+  ngOnDestroy(): void {
+    if(this.alertCompSub)
+      this.alertCompSub.unsubscribe();
+  }
 }
