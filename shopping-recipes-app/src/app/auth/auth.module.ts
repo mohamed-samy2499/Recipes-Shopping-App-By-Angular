@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { RouterModule } from "@angular/router";
 import { SharedModule } from "../shared/shared.module";
 import { AuthComponent } from "./auth.component";
 
@@ -8,10 +9,14 @@ import { AuthComponent } from "./auth.component";
         AuthComponent
     ],
     imports:[
+        RouterModule.forChild([
+            {path:'auth',component:AuthComponent}
+        ]),
         FormsModule,
         SharedModule
     ],
     exports:[
+        RouterModule,
         AuthComponent
     ]
 
