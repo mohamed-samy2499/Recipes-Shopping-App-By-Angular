@@ -13,6 +13,6 @@ constructor(private authService:AuthService){
 
 }
   ngOnInit(): void {
-    this.authService.AutoLogin();
+    this.authService.autoLogin();
   }
 }
