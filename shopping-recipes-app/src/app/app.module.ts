@@ -10,10 +10,9 @@ import { RecipeComponent } from './recipe/recipe.component';
 import { RecipeListComponent } from './recipe/recipe-list/recipe-list.component';
 import { RecipeDetailComponent } from './recipe/recipe-detail/recipe-detail.component';
 import { RecipeItemComponent } from './recipe/recipe-list/recipe-item/recipe-item.component';
-import { FormsModule, NgModel, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { RecipeStartComponent } from './recipe/recipe-start/recipe-start.component';
-import { CommonModule } from '@angular/common';
 import { AddRecipeComponent } from './recipe/add-recipe/add-recipe.component';
 import { RecipeService } from './recipe/recipe.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -21,6 +20,7 @@ import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './shared/alert/alert.component';
+import { PlaceholderDirective } from './shared/placeholder/placeholder.directive';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,9 @@ import { AlertComponent } from './shared/alert/alert.component';
     RecipeListComponent,
     RecipeDetailComponent,
     RecipeItemComponent, 
-    DropdownDirective, RecipeStartComponent,AddRecipeComponent, AuthComponent, LoadingSpinnerComponent,
+    DropdownDirective,
+    PlaceholderDirective, 
+    RecipeStartComponent,AddRecipeComponent, AuthComponent, LoadingSpinnerComponent,
     AlertComponent
   ],
   imports: [
