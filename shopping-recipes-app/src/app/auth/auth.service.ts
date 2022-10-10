@@ -11,7 +11,7 @@ export interface AuthResponseData {
 @Injectable({ providedIn: 'root' })
 
 export class AuthService {
-    readonly initUser = new User("email","id","token",new Date());
+    isLoggedIn = false;
     user = new BehaviorSubject<User|null>(null);
     private apiKey = "AIzaSyDgLHtQCQfNcDaPXFa6Yh1X3rC7_c23D0E";
     tokenExpirationTimer:any;
@@ -55,6 +55,8 @@ export class AuthService {
     
 
     autoLogin(){
+        this.isLoggedIn = false;
+
         const userData: {
         email:string,
         id:string,
@@ -69,6 +71,7 @@ export class AuthService {
             new Date(userData._tokenExpirationDate))
         if(loadedUser.token){
             this.user.next(loadedUser);
+            this.isLoggedIn = true;
             const expirationDuration = 
             new Date(userData._tokenExpirationDate).getTime() 
             -  new Date().getTime();
@@ -78,6 +81,7 @@ export class AuthService {
     
 
     logout(){
+        this.isLoggedIn = false;
         this.user.next(null);
         this.router.navigate(['/auth']);
         localStorage.removeItem('userData');
@@ -95,7 +99,17 @@ export class AuthService {
     }   
 
 
+    isAuthenticated(){
+        const promise = new Promise(
+            (resolve,reject) => {
+                resolve(this.isLoggedIn);
+            }
+        )
+        return promise;
+    }
+
     private HandleError(errorRes: HttpErrorResponse){
+        this.isLoggedIn = false;
         let errorMsg = "An unknown error occurred!";
                     if (!errorRes.error || !errorRes.error.error) {
                         // throw new Error(errorMsg);
@@ -121,6 +135,7 @@ export class AuthService {
 
     private HandleUserData(email:string,localId:string,idToken:string,expiresIn:number){
         console.log(expiresIn);
+        this.isLoggedIn = false;
         
         const expirationDate = new Date(new Date().getTime() + expiresIn*1000);
         const user = new User(email,
@@ -128,6 +143,7 @@ export class AuthService {
             idToken,
             expirationDate);
         this.user.next(user);
+        this.isLoggedIn = true;
         this.autoLogout(expiresIn * 1000);
         localStorage.setItem("userData",JSON.stringify(user));
     }
