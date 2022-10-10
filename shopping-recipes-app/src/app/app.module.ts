@@ -1,26 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ShoppingListEditComponent } from './shopping-list/shopping-list-edit/shopping-list-edit.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { HeaderComponent } from './header/header.component';
-import { RecipeComponent } from './recipe/recipe.component';
-import { RecipeListComponent } from './recipe/recipe-list/recipe-list.component';
-import { RecipeDetailComponent } from './recipe/recipe-detail/recipe-detail.component';
-import { RecipeItemComponent } from './recipe/recipe-list/recipe-item/recipe-item.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownDirective } from './shared/dropdown.directive';
-import { RecipeStartComponent } from './recipe/recipe-start/recipe-start.component';
-import { AddRecipeComponent } from './recipe/add-recipe/add-recipe.component';
 import { RecipeService } from './recipe/recipe.service';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { AlertComponent } from './shared/alert/alert.component';
 import { PlaceholderDirective } from './shared/placeholder/placeholder.directive';
+import { recipesModule } from './recipe/recipes.module';
 
 @NgModule({
   declarations: [
@@ -28,13 +23,10 @@ import { PlaceholderDirective } from './shared/placeholder/placeholder.directive
     ShoppingListComponent,
     ShoppingListEditComponent,
     HeaderComponent,
-    RecipeComponent,
-    RecipeListComponent,
-    RecipeDetailComponent,
-    RecipeItemComponent, 
     DropdownDirective,
     PlaceholderDirective, 
-    RecipeStartComponent,AddRecipeComponent, AuthComponent, LoadingSpinnerComponent,
+    AuthComponent, 
+    LoadingSpinnerComponent,
     AlertComponent
   ],
   imports: [
@@ -42,7 +34,8 @@ import { PlaceholderDirective } from './shared/placeholder/placeholder.directive
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    recipesModule
   ],
   providers: [  RecipeService ,
     {provide:HTTP_INTERCEPTORS,
